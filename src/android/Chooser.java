@@ -116,8 +116,7 @@ public class Chooser extends CordovaPlugin {
 			mediaType = "application/octet-stream";
 		}
 		
-		InputStream inputStream = contentResolver.openInputStream(uri);
-		byte[] bytes = inputStream.readAllBytes();
+		byte[] bytes = getFileBytesFromUri(contentResolver, uri);
 		String base64Encoded = Base64.encodeToString(bytes, Base64.DEFAULT);
 
 		result.put("name", name);
@@ -144,4 +143,10 @@ public class Chooser extends CordovaPlugin {
 
 		return "File";
 	}
+
+	public static byte[] getFileBytesFromUri(ContentResolver contentResolver, Uri uri) throws IOException {
+		try (InputStream inputStream = contentResolver.openInputStream(uri)) {
+			return inputStream.readAllBytes();
+	}
+}
 }
