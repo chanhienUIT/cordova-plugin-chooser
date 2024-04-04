@@ -115,8 +115,14 @@ public class Chooser extends CordovaPlugin {
 		if (mediaType == null || mediaType.isEmpty()) {
 			mediaType = "application/octet-stream";
 		}
+
+		byte[] bytes;
+		try {
+			bytes = getFileBytesFromUri(contentResolver, uri);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-		byte[] bytes = getFileBytesFromUri(contentResolver, uri);
 		String base64Encoded = Base64.encodeToString(bytes, Base64.DEFAULT);
 
 		result.put("name", name);
