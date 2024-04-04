@@ -16,6 +16,7 @@ import java.lang.Exception;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
+import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -118,17 +119,10 @@ public class Chooser extends CordovaPlugin {
 
 		InputStream inputStream = contentResolver.openInputStream(uri);
 		if (inputStream != null) {
-			ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
-			int bufferSize = 1024;
-			byte[] buffer = new byte[bufferSize];
-			int len;
-			while ((len = inputStream.read(buffer)) != -1) {
-				byteBuffer.write(buffer, 0, len)
-			}
+			byte[] bytes = IOUtils.toByteArray(inputStream);
+			String base64Encoded = Base64.getEncoder().encodeToString(bytes);
 		}
 		inputStream.close();
-		byte[] fileData = byteBuffer.toByteArray();
-		String base64Encoded = Base64.encodeToString(fileData, Base64.DEFAULT);
 
 		result.put("name", name);
 		result.put("mimeType", mediaType);
