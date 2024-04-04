@@ -117,7 +117,7 @@ public class Chooser extends CordovaPlugin {
 		}
 
 		byte[] bytes = new byte[0];
-		String base64Encoded;
+		String base64Encoded = "";
 		try {
 			bytes = getFileBytesFromUri(contentResolver, uri);
 			base64Encoded = Base64.encodeToString(bytes, Base64.DEFAULT);
