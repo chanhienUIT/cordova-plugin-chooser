@@ -117,12 +117,8 @@ public class Chooser extends CordovaPlugin {
 			mediaType = "application/octet-stream";
 		}
 
-		InputStream inputStream = contentResolver.openInputStream(uri);
-		if (inputStream != null) {
-			byte[] bytes = IOUtils.toByteArray(inputStream);
-			String base64Encoded = Base64.getEncoder().encodeToString(bytes);
-		}
-		inputStream.close();
+		val bytes = contentResolver.openInputStream(uri).readBytes();
+		String base64Encoded = Base64.encodeToString(bytes, Base64.DEFAULT)
 
 		result.put("name", name);
 		result.put("mimeType", mediaType);
