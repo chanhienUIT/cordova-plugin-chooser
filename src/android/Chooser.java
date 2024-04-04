@@ -16,7 +16,6 @@ import java.lang.Exception;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
-import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -116,8 +115,9 @@ public class Chooser extends CordovaPlugin {
 		if (mediaType == null || mediaType.isEmpty()) {
 			mediaType = "application/octet-stream";
 		}
-
-		byte[] bytes = IOUtils.toByteArray(contentResolver.openInputStream(uri));
+		
+		InputStream inputStream = contentResolver.openInputStream(uri);
+		byte[] bytes = inputStream.readAllBytes();
 		String base64Encoded = Base64.encodeToString(bytes, Base64.DEFAULT);
 
 		result.put("name", name);
