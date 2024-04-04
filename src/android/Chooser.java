@@ -117,13 +117,13 @@ public class Chooser extends CordovaPlugin {
 		}
 
 		byte[] bytes;
+		String base64Encoded;
 		try {
 			bytes = getFileBytesFromUri(contentResolver, uri);
+			base64Encoded = Base64.encodeToString(bytes, Base64.DEFAULT);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		String base64Encoded = Base64.encodeToString(bytes, Base64.DEFAULT);
 
 		result.put("name", name);
 		result.put("mimeType", mediaType);
