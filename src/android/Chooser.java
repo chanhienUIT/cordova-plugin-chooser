@@ -118,7 +118,7 @@ public class Chooser extends CordovaPlugin {
 		}
 
 		byte[] bytes = IOUtils.toByteArray(contentResolver.openInputStream(uri));
-		String base64Encoded = Base64.encodeToString(bytes, Base64.DEFAULT)
+		String base64Encoded = Base64.encodeToString(bytes, Base64.DEFAULT);
 
 		result.put("name", name);
 		result.put("mimeType", mediaType);
