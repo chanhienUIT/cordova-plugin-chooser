@@ -16,7 +16,7 @@ import java.lang.Exception;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
-import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -117,7 +117,7 @@ public class Chooser extends CordovaPlugin {
 			mediaType = "application/octet-stream";
 		}
 
-		val bytes = contentResolver.openInputStream(uri).readBytes();
+		byte[] bytes = IOUtils.toByteArray(contentResolver.openInputStream(uri));
 		String base64Encoded = Base64.encodeToString(bytes, Base64.DEFAULT)
 
 		result.put("name", name);
